@@ -1,0 +1,17 @@
+{
+    "name": "getsoft/payeer-trade-api",
+    "description": "Class for working with Payeer api",
+    "require": {
+        "ext-json": "*",
+        "ext-curl": "*",
+        "php": ">=8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Payeer\\": "Payeer"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "9.5"
+    }
+}
