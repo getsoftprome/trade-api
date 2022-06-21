@@ -18,7 +18,7 @@ class SignatureHelper
         $this->apiKey = $apiKey;
     }
 
-    public function getApiKey(){
+    public function getApiKey() : string{
         return $this->apiKey;
     }
 
@@ -26,12 +26,12 @@ class SignatureHelper
         $this->apiId = $apiId;
     }
 
-    public function getApiId(){
+    public function getApiId() : string{
         return $this->apiId;
     }
 
 
-    public function getSignature(string $method, array $params = []){
+    public function getSignature(string $method, array $params = []) : string{
 
         $post = json_encode($params);
         $sign = hash_hmac('sha256', $method.$post, $this->apiKey);

@@ -26,10 +26,12 @@ class Request
         $response = curl_exec($ch);
         curl_close($ch);
 
-
-
-
         $arResponse = json_decode($response, true);
+
+        if ($arResponse['success'] !== true)
+        {
+            throw new \Exception($arResponse['error']['code']);
+        }
 
         return $arResponse;
     }
@@ -57,7 +59,7 @@ class Request
 
         if ($arResponse['success'] !== true)
         {
-            throw new Exception($arResponse['error']['code']);
+            throw new \Exception($arResponse['error']['code']);
         }
 
         return $arResponse;

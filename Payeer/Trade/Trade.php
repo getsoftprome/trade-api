@@ -18,37 +18,39 @@ class Trade
         $this->request = new Request(new SignatureHelper($apiKey, $apiId));
     }
 
-    public function Time()
+    public function Time() : Array
     {
         $res = $this->request->get('time');
         return $res;
     }
 
-    public function Info(string $pair = '')
+    public function Info(string $pair = '') : Array
     {
-        if ($pair === '') {
-            $res = $this->request->get('info');
-        } else {
+        if($pair !== ''){
             $options['pair'] = $pair;
             $res = $this->request->post('info', $options);
+            return $res;
         }
+
+        $res = $this->request->get('info');
 
         return $res;
     }
 
-    public function Ticker(string $pair = '')
+    public function Ticker(string $pair = '') : Array
     {
-        if ($pair === '') {
-            $res = $this->request->get('ticker');
-        } else {
+        if($pair !== ''){
             $options['pair'] = $pair;
             $res = $this->request->post('ticker', $options);
+            return $res;
         }
 
+        $res = $this->request->get('ticker');
+
         return $res;
     }
 
-    public function Orders(string $pair)
+    public function Orders(string $pair) : Array
     {
         $options['pair'] = $pair;
         $res = $this->request->post('ticker', $options);
@@ -56,7 +58,7 @@ class Trade
         return $res;
     }
 
-    public function Trades(string $pair)
+    public function Trades(string $pair) : Array
     {
         $options['pair'] = $pair;
         $res = $this->request->post('ticker', $options);
@@ -64,13 +66,13 @@ class Trade
         return $res;
     }
 
-    public function Account()
+    public function Account() : Array
     {
         $res = $this->request->post('account');
         return $res;
     }
 
-    public function OrderCreateLimit(string $pair, string $action, $amount, $price)
+    public function OrderCreateLimit(string $pair, string $action, $amount, $price) : Array
     {
         $options['pair'] = $pair;
         $options['type'] = 'limit';
@@ -82,7 +84,7 @@ class Trade
         return $res;
     }
 
-    public function OrderCreateMarket(string $pair, string $action, $value = 0, $amount = 0)
+    public function OrderCreateMarket(string $pair, string $action, $value = 0, $amount = 0) : Array
     {
         $options['pair'] = $pair;
         $options['type'] = 'market';
@@ -90,7 +92,7 @@ class Trade
 
         if ($value === 0) {
             $options['amount'] = $amount;
-        }
+        }elseif($amount === 0)
         {
             $options['value'] = $value;
         }
@@ -99,7 +101,7 @@ class Trade
         return $res;
     }
 
-    public function OrderCreateStopLimit(string $pair, string $action, $amount, $price, $stopPrice)
+    public function OrderCreateStopLimit(string $pair, string $action, $amount, $price, $stopPrice) : Array
     {
         $options['pair'] = $pair;
         $options['type'] = 'stop_limit';
@@ -112,25 +114,23 @@ class Trade
         return $res;
     }
 
-    public function OrderStatus(int $orderId)
+    public function OrderStatus(int $orderId) : Array
     {
         $options['orderId'] = $orderId;
         $res = $this->request->post('order_status', $options);
         return $res;
     }
 
-    public function OrderCancel($orderId = 0, string $pair = '', string $action = '')
+    public function OrderCancel($orderId = 0, string $pair = '', string $action = '') : Array
     {
         $options = [];
 
         if ($orderId !== 0) {
             $options['orderId'] = $orderId;
-        } else {
-            if ($pair !== '') {
-                $options['pair'] = $pair;
-                if ($action !== '') {
-                    $options['action'] = $action;
-                }
+        } elseif ($pair !== '') {
+            $options['pair'] = $pair;
+            if ($action !== '') {
+                $options['action'] = $action;
             }
         }
 
@@ -138,7 +138,7 @@ class Trade
         return $res;
     }
 
-    public function MyOrders(string $pair = '', string $action = '')
+    public function MyOrders(string $pair = '', string $action = '') : Array
     {
         $options = [];
 
@@ -152,7 +152,7 @@ class Trade
         return $res;
     }
 
-    public function MyHistory(string $pair = '', string $action = '', string $status = '', int $dateFrom = 0, int $dateTo = 0, int $append = 0,int $limit = 0)
+    public function MyHistory(string $pair = '', string $action = '', string $status = '', int $dateFrom = 0, int $dateTo = 0, int $append = 0,int $limit = 0) : Array
     {
         $options = [];
 
@@ -181,7 +181,7 @@ class Trade
         return $res;
     }
 
-    public function MyTrades(string $pair = '', string $action = '', int $dateFrom = 0, int $dateTo = 0, int $append = 0, int $limit = 0)
+    public function MyTrades(string $pair = '', string $action = '', int $dateFrom = 0, int $dateTo = 0, int $append = 0, int $limit = 0) : Array
     {
         $options = [];
 
