@@ -1,2 +1,3 @@
-# trade-api
-Demo api class
+# Payeer api 
+
+Class for working with Payeer api
